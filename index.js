@@ -1,3 +1,7 @@
+const $pause = document.querySelector('.pause');
+const $play = document.querySelector('.play');
+const $mode = document.querySelector('.mode');
+
 const width = Math.ceil(screen.availWidth / 10);
 const height = Math.ceil(screen.availHeight / 10);
 
@@ -9,12 +13,26 @@ const state = {
   dark: false
 };
 
-const canvas = document.querySelector('canvas');
+const $canvas = document.querySelector('canvas');
 
-canvas.width = width * 10;
-canvas.height = height * 10;
+$canvas.width = width * 10;
+$canvas.height = height * 10;
 
-const context = canvas.getContext('2d');
+const context = $canvas.getContext('2d');
+
+function switchMode() {
+  state.dark = !state.dark;
+
+  context.fillStyle = state.dark ? 'white' : 'black';
+  document.body.style.backgroundColor = state.dark ? 'black' : 'white';
+}
+
+function switchFullscreen() {
+  state.dark = !state.dark;
+
+  context.fillStyle = state.dark ? 'white' : 'black';
+  document.body.style.backgroundColor = state.dark ? 'black' : 'white';
+}
 
 function toCellCoord(n) {
   return Math.ceil(n / 10) - 1;
@@ -65,14 +83,23 @@ function handleTouch() {
 }
 
 
-canvas.addEventListener('mousedown', () => state.clicking = true);
-canvas.addEventListener('mouseup', () => state.clicking = false);
-canvas.addEventListener('mousemove', handleDrag);
-canvas.addEventListener('touchmove', handleTouch);
+$canvas.addEventListener('mousedown', () => state.clicking = true);
+$canvas.addEventListener('mouseup', () => state.clicking = false);
+$canvas.addEventListener('mousemove', handleDrag);
+$canvas.addEventListener('touchmove', handleTouch);
 
-document.addEventListener('keypress',
-  ({ which }) => which === 13 ? state.paused = !state.paused : null
-);
+
+$pause.addEventListener('click', () => {
+  state.paused = true;
+  $pause.style.display = 'none';
+  $play.style.display = 'block';
+});
+$play.addEventListener('click', () => {
+  state.paused = false;
+  $play.style.display = 'none';
+  $pause.style.display = 'block';
+});
+$mode.addEventListener('click', switchMode);
 
 function tick() {
   if (!state.paused) {

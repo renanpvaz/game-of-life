@@ -3,8 +3,9 @@
   <head>
     <meta charset="utf-8">
     <title>Game of Life</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no">
   </head>
-  <body>
+  <body style="background-image: linear-gradient(to right, black 1px, transparent 1px), linear-gradient(to bottom, black 1px, transparent 1px);">
     <style media="screen">
       * {
         margin: 0;
@@ -15,10 +16,42 @@
         height: 300px;
         overflow: hidden;
         background-size: 10px 10px;
-        background-image: linear-gradient(to right, rgba(0, 0, 0, .5) 1px, transparent 1px), linear-gradient(to bottom, rgba(0, 0, 0, .5) 1px, transparent 1px);
+        transition: background-color ease 2s;
+      }
+
+      .options {
+        opacity: .5;
+        top: 0;
+        position: fixed;
+        background-color: black;
+        display: flex;
+        transition: opacity ease .5s;
+      }
+
+      .options:hover {
+        opacity: .9;
+      }
+
+      svg {
+        cursor: pointer;
+        width: 30px;
+        height: 30px;
+        padding: 5px;
       }
     </style>
     <canvas></canvas>
+    <section class="options">
+      <svg class="play" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" width="512px" height="512px" viewBox="0 0 373.008 373.008" style="enable-background:new 0 0 373.008 373.008;" xml:space="preserve">
+      	<path d="M61.792,2.588C64.771,0.864,68.105,0,71.444,0c3.33,0,6.663,0.864,9.655,2.588l230.116,167.2    c5.963,3.445,9.656,9.823,9.656,16.719c0,6.895-3.683,13.272-9.656,16.713L81.099,370.427c-5.972,3.441-13.334,3.441-19.302,0    c-5.973-3.453-9.66-9.833-9.66-16.724V19.305C52.137,12.413,55.818,6.036,61.792,2.588z" fill="#FFFFFF"/>
+      </svg>
+      <svg style="display: none" class="pause" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 535.578 535.578" style="enable-background:new 0 0 535.578 535.578;" xml:space="preserve" width="512px" height="512px">
+      	<path d="M231.6,516.278c0,10.658-8.641,19.3-19.3,19.3H106.15c-10.659,0-19.3-8.641-19.3-19.3V19.3     c0-10.659,8.641-19.3,19.3-19.3h106.15c10.659,0,19.3,8.641,19.3,19.3V516.278z" fill="#FFFFFF"/>
+      	<path d="M448.728,516.278c0,10.658-8.641,19.3-19.3,19.3h-106.15c-10.659,0-19.3-8.641-19.3-19.3V19.3     c0-10.659,8.641-19.3,19.3-19.3h106.15c10.659,0,19.3,8.641,19.3,19.3V516.278z" fill="#FFFFFF"/>
+      </svg>
+      <svg class="mode" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 202.748 202.748" style="enable-background:new 0 0 202.748 202.748;" xml:space="preserve" width="512px" height="512px">
+        <path d="M199.876,119.867c-2.405-1.886-5.715-2.124-8.366-0.6c-12.57,7.225-25.856,10.889-39.489,10.889  c-43.804,0-79.44-35.638-79.44-79.443c0-13.693,3.669-26.961,10.906-39.434c1.537-2.648,1.309-5.965-0.576-8.379  c-1.884-2.414-5.047-3.441-7.989-2.591c-21.161,6.1-40.207,19.042-53.629,36.441C7.363,54.809,0,76.437,0,99.297  c0,57.035,46.4,103.438,103.434,103.438c22.86,0,44.493-7.36,62.561-21.286c17.411-13.419,30.359-32.454,36.459-53.6  C203.302,124.911,202.282,121.754,199.876,119.867z M103.434,187.734C54.671,187.734,15,148.061,15,99.297  c0-32.898,18.825-62.836,47.436-77.882c-3.228,9.485-4.855,19.284-4.855,29.298c0,52.076,42.366,94.443,94.44,94.443  c10,0,19.816-1.634,29.347-4.873C166.324,168.9,136.36,187.734,103.434,187.734z" fill="#FFFFFF"/>
+      </svg>
+    </section>
     <script src=life.js></script>
     <script src=index.js></script>
   </body>
