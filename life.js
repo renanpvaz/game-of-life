@@ -38,13 +38,17 @@ function Life({ width, height, onCreateCell, onKillCell }) {
     },
 
     createCell(x, y) {
-      grid[x][y] = true;
-      onCreateCell(x, y);
+      if (!grid[x][y]) {
+        grid[x][y] = true;
+        onCreateCell(x, y);
+      }
     },
 
     killCell(x, y) {
-      grid[x][y] = false;
-      onKillCell(x, y);
+      if (grid[x][y]) {
+        grid[x][y] = false;
+        onKillCell(x, y);
+      }
     }
   }
 }

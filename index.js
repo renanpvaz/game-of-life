@@ -2,10 +2,9 @@ const $pause = document.querySelector('.pause');
 const $play = document.querySelector('.play');
 const $mode = document.querySelector('.mode');
 
-const width = Math.ceil(screen.availWidth / 10);
-const height = Math.ceil(screen.availHeight / 10);
-
 const squareSize = 10;
+const width = Math.ceil(screen.availWidth / squareSize);
+const height = Math.ceil(screen.availHeight / squareSize);
 
 const state = {
   paused: true,
@@ -15,8 +14,8 @@ const state = {
 
 const $canvas = document.querySelector('canvas');
 
-$canvas.width = width * 10;
-$canvas.height = height * 10;
+$canvas.width = width * squareSize;
+$canvas.height = height * squareSize;
 
 const context = $canvas.getContext('2d');
 
@@ -27,19 +26,12 @@ function switchMode() {
   document.body.style.backgroundColor = state.dark ? 'black' : 'white';
 }
 
-function switchFullscreen() {
-  state.dark = !state.dark;
-
-  context.fillStyle = state.dark ? 'white' : 'black';
-  document.body.style.backgroundColor = state.dark ? 'black' : 'white';
-}
-
 function toCellCoord(n) {
-  return Math.ceil(n / 10) - 1;
+  return Math.ceil(n / squareSize) - 1;
 }
 
 function toCanvasCoord(n) {
-  return 10.0 * Math.round(n / 10.0);
+  return squareSize * Math.round(n / squareSize);
 }
 
 const game = Life({
@@ -48,8 +40,8 @@ const game = Life({
 
   onCreateCell(x, y) {
     context.fillRect(
-      toCanvasCoord(x * 10) + .5,
-      toCanvasCoord(y * 10) + .5,
+      toCanvasCoord(x * squareSize) + .5,
+      toCanvasCoord(y * squareSize) + .5,
       squareSize,
       squareSize
     );
@@ -57,8 +49,8 @@ const game = Life({
 
   onKillCell(x, y) {
     context.clearRect(
-      toCanvasCoord(x * 10) + .5,
-      toCanvasCoord(y * 10) + .5,
+      toCanvasCoord(x * squareSize) + .5,
+      toCanvasCoord(y * squareSize) + .5,
       squareSize,
       squareSize
     );
@@ -82,12 +74,10 @@ function handleTouch() {
   game.createCell(toCellCoord(x), toCellCoord(y));
 }
 
-
 $canvas.addEventListener('mousedown', () => state.clicking = true);
 $canvas.addEventListener('mouseup', () => state.clicking = false);
 $canvas.addEventListener('mousemove', handleDrag);
 $canvas.addEventListener('touchmove', handleTouch);
-
 
 $pause.addEventListener('click', () => {
   state.paused = true;
