@@ -1,6 +1,7 @@
 const $pause = document.querySelector('.pause');
 const $play = document.querySelector('.play');
 const $mode = document.querySelector('.mode');
+const $canvas = document.querySelector('canvas');
 
 const squareSize = 10;
 const width = Math.ceil(screen.availWidth / squareSize);
@@ -11,8 +12,6 @@ const state = {
   clicking: false,
   dark: false
 };
-
-const $canvas = document.querySelector('canvas');
 
 $canvas.width = width * squareSize;
 $canvas.height = height * squareSize;
@@ -84,11 +83,13 @@ $pause.addEventListener('click', () => {
   $pause.style.display = 'none';
   $play.style.display = 'block';
 });
+
 $play.addEventListener('click', () => {
   state.paused = false;
   $play.style.display = 'none';
   $pause.style.display = 'block';
 });
+
 $mode.addEventListener('click', switchMode);
 
 function tick() {
